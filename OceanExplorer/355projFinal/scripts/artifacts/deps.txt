@@ -1,0 +1,8 @@
+@startuml
+class dpu.se.code.App
+class dpu.se.code.App2
+class dpu.se.code.ClassList
+class dpu.se.code.services.SearchService
+class dpu.se.code.services.Services
+interface dpu.se.code.services.interfaces.SearchAlgo
+@enduml

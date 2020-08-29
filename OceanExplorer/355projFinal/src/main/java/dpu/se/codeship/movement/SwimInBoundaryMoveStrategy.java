@@ -1,0 +1,82 @@
+package dpu.se.codeship.movement;
+
+import java.awt.Point;
+import java.util.Random;
+
+import dpu.se.code.interfaces.IMovementStrategy;
+import dpu.se.code.ships.SeaMonster;
+
+public class SwimInBoundaryMoveStrategy implements IMovementStrategy<SeaMonster> {
+	/*
+	 * Sea monster movement strategy, only allow 
+	 * the sea Monster to move within the Boundary
+	 */
+	
+	public void move(SeaMonster ship, Point p) {
+		
+		double currX = ship.location.getX();
+		double currY = ship.location.getY();
+		
+		double shipX = p.getX();
+		double shipY = p.getY();
+		
+		Random rand = new Random();
+		try {
+			// ship is east, south of pirate ship
+			if ( currX < shipX && currY < shipY) {
+				int randMove = rand.nextInt(2);
+				if (randMove == 1) {
+					ship.moveSouth();
+				} else {
+					ship.moveEast();
+				}
+			}
+			// ship is west, north of pirate ship
+			if ( currX > shipX && currY > shipY) {
+				int randMove = rand.nextInt(2);
+				if (randMove == 1) {
+					ship.moveNorth();
+				} else {
+					ship.moveWest();
+				}
+			}
+			// ship is west, south of pirate ship
+			if ( currX > shipX && currY < shipY) {
+				int randMove = rand.nextInt(2);
+				if (randMove == 1) {
+					ship.moveSouth();
+				} else {
+					ship.moveWest();
+				}
+			}
+			// ship is east, north of pirate ship
+			if ( currX < shipX && currY > shipY) {
+				int randMove = rand.nextInt(2);
+				if (randMove == 1) {
+					ship.moveNorth();
+				} else {
+					ship.moveEast();
+				}
+			}
+			// ship is east and on same south/north of pirate ship
+			if ( currX < shipX && currY == shipY) {
+				ship.moveEast();
+			}
+			// ship is west and on same south/north of pirate ship
+			if ( currX > shipX && currY == shipY) {
+				ship.moveWest();
+			}
+			// ship is north and on same east/west of pirate ship
+			if ( currX == shipX && currY < shipY) {
+				ship.moveSouth();
+			}
+			// ship is north and on same east/west of pirate ship
+			if ( currX == shipX && currY > shipY) {
+				ship.moveNorth();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
